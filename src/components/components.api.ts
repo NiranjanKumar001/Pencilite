@@ -5,3 +5,5 @@ export const componentsApi = {
 };
 
 // Implement components API calls
+
+// Wire Components to API service
