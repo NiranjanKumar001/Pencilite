@@ -5,5 +5,3 @@ export function Convex() {
 }
 
 export default Convex;
-
-// Build Convex layout and fields
