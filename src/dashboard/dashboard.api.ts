@@ -3,7 +3,3 @@
 export const dashboardApi = {
   // API endpoint definitions
 };
-
-// Implement dashboard API calls
-
-// Wire Dashboard to API service
