@@ -5,3 +5,5 @@ export const uiApi = {
 };
 
 // Implement ui API calls
+
+// Wire Ui to API service
