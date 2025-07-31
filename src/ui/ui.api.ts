@@ -3,3 +3,5 @@
 export const uiApi = {
   // API endpoint definitions
 };
+
+// Implement ui API calls
