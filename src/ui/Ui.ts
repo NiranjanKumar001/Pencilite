@@ -5,5 +5,3 @@ export function Ui() {
 }
 
 export default Ui;
-
-// Build Ui layout and fields
