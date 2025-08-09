@@ -5,3 +5,5 @@ export function Workspaces() {
 }
 
 export default Workspaces;
+
+// Build Workspaces layout and fields
