@@ -5,3 +5,5 @@ export const coreApi = {
 };
 
 // Implement core API calls
+
+// Wire Core to API service
