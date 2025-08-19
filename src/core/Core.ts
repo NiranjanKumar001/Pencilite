@@ -5,5 +5,3 @@ export function Core() {
 }
 
 export default Core;
-
-// Build Core layout and fields
