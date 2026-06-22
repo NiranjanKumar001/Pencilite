@@ -6,12 +6,12 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs'
 import { Separator } from '@/components/ui/separator'
 import { useConvex } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { signOut } from 'next-auth/react'
 
 export interface TEAM{
     createdBy:String,
@@ -45,6 +45,8 @@ function SideNavTopSection({user,setActiveTeamInfo}:any) {
         activeTeam?setActiveTeamInfo(activeTeam):null
     },[activeTeam])
     const getTeamList=async()=>{
+        if(!user?.email) return;
+
         const result=await convex.query(api.teams.getTeam,{email:user?.email})
         console.log("TeamList",result);
         setTeamList(result);
@@ -101,23 +103,26 @@ function SideNavTopSection({user,setActiveTeamInfo}:any) {
                             <item.icon className='h-4 w-4'/>
                             {item.name}</h2>
                     ))}
-                    <LogoutLink>
-                    <h2 className='flex gap-2 items-center
-                        p-2 hover:bg-gray-100 rounded-lg cursor-pointer text-sm'>
+                    <button
+                        type="button"
+                        className='flex w-full gap-2 items-center
+                        p-2 hover:bg-gray-100 rounded-lg cursor-pointer text-sm'
+                        onClick={() => signOut({ callbackUrl: "/" })}
+                    >
                             <LogOut className='h-4 w-4'/>
-                            Logout</h2>
-                        </LogoutLink>
+                            Logout
+                    </button>
                 </div>
                 <Separator className='mt-2 bg-slate-100'/>
                 {/* User Info Section  */}
                {user&& <div className='mt-2 flex gap-2 items-center'>
-                    <Image src={user?.picture} alt='user'
+                    {user?.image&&<Image src={user.image} alt='user'
                     width={30}
                     height={30}
                     className='rounded-full'
-                    />
+                    />}
                     <div>
-                        <h2 className='text-[14px] font-bold'>{user?.given_name} {user?.family_name}</h2>
+                        <h2 className='text-[14px] font-bold'>{user?.name}</h2>
                         <h2 className='text-[12px] text-gray-500'>{user?.email}</h2>
 
                     </div>

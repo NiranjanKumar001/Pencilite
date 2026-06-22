@@ -5,10 +5,11 @@
 ### AI-Powered Visual Workspace for Diagrams, Architecture Design & Collaborative Thinking
 
 ![License](https://img.shields.io/badge/License-MIT-green)
-![React](https://img.shields.io/badge/React-19-blue)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![React](https://img.shields.io/badge/React-18-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)
-![AI Powered](https://img.shields.io/badge/AI-Powered-purple)
-![Realtime](https://img.shields.io/badge/Realtime-Collaboration-orange)
+![Convex](https://img.shields.io/badge/Convex-Realtime-orange)
+![NextAuth.js](https://img.shields.io/badge/Auth-NextAuth.js-purple)
 
 Create diagrams, design systems, map workflows, and transform ideas into structured visual experiences with the power of AI.
 
@@ -163,6 +164,73 @@ Pencilite helps teams spend less time drawing and more time building.
 | Organization   | Structured workspaces and projects  |
 | Exporting      | PNG, SVG & PDF outputs              |
 | Scalability    | Supports large and complex diagrams |
+
+---
+
+## 🧰 Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | Next.js 14 App Router |
+| UI | React 18, TypeScript, Tailwind CSS |
+| Components | shadcn/ui style components, Radix UI primitives |
+| Auth | NextAuth.js with Google OAuth |
+| Database / realtime backend | Convex |
+| Whiteboard | Excalidraw |
+| Rich text editor | Editor.js with header, list, checklist, paragraph, and warning tools |
+| Icons / notifications | lucide-react, Sonner |
+| Utilities | Moment.js, clsx, tailwind-merge |
+
+---
+
+## ⚙️ Environment Variables
+
+Create a local `.env.local` file from the committed example:
+
+```bash
+cp .env.example .env.local
+```
+
+Required values:
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_CONVEX_URL` | Convex deployment URL used by the client provider |
+| `NEXTAUTH_URL` | Local or deployed app URL used by NextAuth |
+| `NEXTAUTH_SECRET` | Secret used to sign NextAuth tokens |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
+| `NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID` | Optional Google AdSense client ID used by the ad script/components |
+
+For Google OAuth, add this callback URL in the Google Cloud Console:
+
+```text
+http://localhost:3000/api/auth/callback/google
+```
+
+---
+
+## 🚦 Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the Next.js app:
+
+```bash
+npm run dev
+```
+
+Run Convex in a separate terminal when working on backend functions:
+
+```bash
+npx convex dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
 
 ---
 

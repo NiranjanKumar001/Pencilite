@@ -1,18 +1,17 @@
-import { Archive, ChevronDown, Flag, Github } from 'lucide-react'
-import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import SideNavTopSection, { TEAM } from './SideNavTopSection'
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import SideNavBottomSection from './SideNavBottomSection'
 import { useConvex, useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { toast } from 'sonner'
 import { FileListContext } from '@/app/_context/FilesListContext'
+import { useSession } from 'next-auth/react'
 
 
 
 function SideNav() {
-  const {user}:any=useKindeBrowserClient();
+  const {data:session}=useSession();
+  const user=session?.user;
   const createFile=useMutation(api.files.createFile);
   const [activeTeam,setActiveTeam]=useState<TEAM|any>();
   const convex=useConvex();
@@ -22,6 +21,8 @@ function SideNav() {
     activeTeam&&getFiles();
   },[activeTeam])
   const onFileCreate=(fileName:string)=>{
+    if(!user?.email) return;
+
     console.log(fileName)
     createFile({
       fileName:fileName,

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "./ConvexClientProvider";
+import AuthProvider from "./AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Head from "next/head";
 import Script from "next/script";
@@ -29,10 +30,12 @@ export default function RootLayout({
         />
       </Head>
       <body className={inter.className}>
+      <AuthProvider>
         <ConvexClientProvider>
          {children}
          <Toaster />
         </ConvexClientProvider>
+      </AuthProvider>
         </body>
     </html>
   );

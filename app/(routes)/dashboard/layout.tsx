@@ -1,7 +1,7 @@
 "use client"
 import { api } from '@/convex/_generated/api';
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { useConvex } from 'convex/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import SideNav from './_components/SideNav';
@@ -15,7 +15,8 @@ function DashboardLayout(
       }>
 ) {
     const convex=useConvex();
-    const {user}:any=useKindeBrowserClient();
+    const {data:session}=useSession();
+    const user=session?.user;
     const [fileList_,setFileList_]=useState();
     const router=useRouter();
     useEffect(()=>{
@@ -23,6 +24,8 @@ function DashboardLayout(
     },[user])
 
     const checkTeam=async()=>{
+        if(!user?.email) return;
+
         const result=await convex.query(api.teams.getTeam,
             {email:user?.email});
 

@@ -1,8 +1,7 @@
 "use client"
-import { Button } from '@/components/ui/button'
 import { api } from '@/convex/_generated/api'
-import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
-import { useConvex, useMutation, useQuery } from 'convex/react'
+import { useConvex, useMutation } from 'convex/react'
+import { useSession } from 'next-auth/react'
 import React, { useEffect } from 'react'
 import Header from './_components/Header'
 import FileList from './_components/FileList'
@@ -10,7 +9,8 @@ import AdBanner from './../../_components/AdBanner'
 function Dashboard() {
 
   const convex=useConvex();
-  const {user}:any=useKindeBrowserClient();
+  const {data:session}=useSession();
+  const user=session?.user;
   //const getUser=useQuery(api.user.getUser,{email:user?.email});
 
   const createUser=useMutation(api.user.createUser);
@@ -23,13 +23,15 @@ function Dashboard() {
   
 
   const checkUser=async()=>{
+    if(!user?.email) return;
+
     const result=await convex.query(api.user.getUser,{email:user?.email});
     if(!result?.length)
     {
         createUser({
-          name:user.given_name,
+          name:user.name ?? '',
           email:user.email,
-          image:user.picture
+          image:user.image ?? ''
         }).then((resp)=>{
           console.log(resp)
         })

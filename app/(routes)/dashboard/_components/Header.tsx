@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import { Search, Send } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
 
 function Header() {
-    const {user}:any=useKindeBrowserClient();
+    const {data:session}=useSession();
+    const user=session?.user;
   return (
     <div className='flex justify-end w-full gap-2 items-center'>
         <div className='flex gap-2 items-center border rounded-md p-1'>
@@ -13,11 +14,11 @@ function Header() {
             <input type='text' placeholder='Search'/>
         </div>
         <div>
-            <Image src={user?.picture} alt='user'
+            {user?.image&&<Image src={user.image} alt='user'
             width={30}
             height={30}
             className='rounded-full'
-            />
+            />}
         </div>
         <Button className='gap-2 flex text-sm
         h-8 hover:bg-blue-700 bg-blue-600

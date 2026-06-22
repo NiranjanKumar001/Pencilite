@@ -1,7 +1,7 @@
 import { FileListContext } from '@/app/_context/FilesListContext'
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { Archive, MoreHorizontal } from 'lucide-react';
 import moment from 'moment';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react'
 import {
@@ -28,7 +28,8 @@ function FileList() {
 
   const {fileList_,setFileList_}=useContext(FileListContext);
   const [fileList,setFileList]=useState<any>();
-  const {user}:any=useKindeBrowserClient();
+  const {data:session}=useSession();
+  const user=session?.user;
   const router=useRouter();
   useEffect(()=>{
     fileList_&&setFileList(fileList_);
@@ -64,7 +65,7 @@ function FileList() {
         {moment(file._creationTime).format('DD MMM YYYY')}
         </td>
         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-         {user&& <Image src= {user?.picture}
+         {user?.image&& <Image src= {user.image}
           alt='user'
           width={30}
           height={30}

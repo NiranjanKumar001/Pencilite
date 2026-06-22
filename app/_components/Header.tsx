@@ -1,5 +1,6 @@
+"use client";
 
-import { LoginLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs'
+import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -41,23 +42,25 @@ function Header() {
 
       <div className="flex items-center gap-4">
         <div className="sm:flex sm:gap-4">
-          <div
+          <button
+            type="button"
             className="block rounded-md  px-5 py-2.5 text-sm font-medium 
             text-white transition "
-           
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           >
-            <LoginLink postLoginRedirectURL="/dashboard"> Login</LoginLink>
-          </div>
+            Login
+          </button>
 
-          <div
+          <button
+            type="button"
             className="hidden rounded-md bg-gray-100 
             px-5 py-2.5 text-sm font-medium
              text-black transition
               hover:text-slate-800 sm:block"
-           
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           >
-          <RegisterLink>Register</RegisterLink>  
-          </div>
+            Register
+          </button>
         </div>
 
         <button
